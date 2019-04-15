@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <!--移动端 viewport-->
+    
+   
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
 
     <!--这meta的作用就是删除默认的苹果工具栏和菜单栏。content有两个值”yes”和”no”,默认就是 yes 显示。-->
@@ -32,25 +32,25 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
-       <!--定义rem的单位值 当前按640设计稿 100px == 1rem-->
-  <!-- <script>
+       <!--定义rem的单位值 当前按750设计稿 100px == 1rem-->
+  <script>
     (function (doc, win) {
       var docEl = doc.documentElement,
         resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
         recalc = function () {
           var clientWidth = docEl.clientWidth;
           if (!clientWidth) return;
-          if(clientWidth>=640){
+          if(clientWidth>=750){
             docEl.style.fontSize = '100px';
           }else{
-            docEl.style.fontSize = 100 * (clientWidth / 640) + 'px';
+            docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
           }
         };
       if (!doc.addEventListener) return;
       win.addEventListener(resizeEvt, recalc, false);
       doc.addEventListener('DOMContentLoaded', recalc, false);
     })(document, window);
-    </script> -->
+    </script>
   </body>
   
 </html>

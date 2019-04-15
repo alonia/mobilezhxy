@@ -11,11 +11,10 @@
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  height:100%;
 }
-.slide-fade{
+/* .slide-fade{
   position: absolute;left:0;right: 0;
 }
 .slide-fade-enter-active {
@@ -30,5 +29,5 @@
   left:0;right: 0;
   transform: translateX(50px);
   opacity: 0;
-}
+} */
 </style>

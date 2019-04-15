@@ -3,19 +3,23 @@ import './cube-ui'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import 'amfe-flexible'
+/* import 'amfe-flexible' */
 import http from './http'
 
+// 引入公共样式文件
+import './main.styl'
+import '@/assets/css/common.css'
+/* 引入公共重置样式 */
+import '@/assets/css/extra-reset.css'
+
+import nav from '@/components/nav.vue'
+Vue.component('v-nav',nav)
+import tab from '@/components/tabBar.vue'
+Vue.component('v-tab',tab)
 /*
-引入flexible  "remUnit": 37.5
-按照750/2设计稿  1rem = 37.5px;
+引入flexible  "remUnit": 75
+按照750设计稿  1rem = 75px;
 */
-import {
-  /* eslint-disable no-unused-vars */
-  Style,
-  Button
-} from 'cube-ui'
-Vue.use(Button)
 Vue.config.productionTip = false
 
 Vue.prototype.$http = http;

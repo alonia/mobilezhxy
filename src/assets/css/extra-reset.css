@@ -1,0 +1,56 @@
+html {
+  /*腾讯移动端字体解决方案*/
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC","Helvetica Neue",STHeiti,"Microsoft Yahei",Tahoma,Simsun,sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  font-size: 62.5%;
+}
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+[hidden],
+template {
+  display: none;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+a {
+  background: transparent;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:active {
+  outline: 0;
+}
+b,
+strong {
+  font-weight: bold;
+}
+img {
+  border: 0;
+  vertical-align: middle;
+}
+
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+
+*,
+*::before,
+*::after{
+  /*移动端常用布局是非固定像素*/
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  /*点击高亮效果的清除*/
+  tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: transparent;
+}
