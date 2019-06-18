@@ -4,9 +4,9 @@
    <div class="container">
        <cube-slide :data="items"/>
        <div class="menu">
-            <div v-for="i in 8" :key="i" class="item">
+            <div v-for="(i,index) in menu" :key="index" class="item">
               <img src="" alt=""><br/>
-              <p>消费通知</p>
+              <p><a @click.prevent="goto(i)">{{i.text}}</a></p>
             </div>
        </div>
        <div class="transaction">
@@ -48,6 +48,34 @@
 export default {
   data () {
     return {
+      menu:[{
+        imgSrc:'',
+        text:'消费确认',
+        link:'/orderConfirm'
+      },
+      {
+        imgSrc:'',
+        text:'账户充值',
+        link:'/financeRecharge'
+      },{
+        imgSrc:'',
+        text:'充值审核',
+        link:'/financeExamined'
+      },
+      {
+        imgSrc:'',
+        text:'重发短信',
+        link:'/message'
+      },{
+        imgSrc:'',
+        text:'订单通知',
+        link:'/order'
+      },
+      {
+        imgSrc:'',
+        text:'订单预定',
+        link:'/orderDestine'
+      }],
       items: [
         {
           url: 'http://www.didichuxing.com/',
@@ -65,7 +93,9 @@ export default {
     }
   },
   methods: {
-    
+    goto(i){
+      this.$router.push(i.link)
+    }
   }
 }
 </script>
@@ -81,8 +111,9 @@ export default {
   margin-top:.1rem;
   font-size:14px;
   .item{
-    width:25%;
-    padding:.2rem;
+    width: 33.33333333%;
+    padding: 0.2rem;
+    text-align: center;
   }
 }
 .transaction

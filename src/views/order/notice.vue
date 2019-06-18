@@ -1,18 +1,21 @@
 <template>
     <div>
-        <v-nav main-text="账户充值"></v-nav>
+        <v-nav main-text="订单通知"></v-nav>
         <div class="container">
             <div class="filterPanel">
-               <cube-input placeholder="用户名"></cube-input>
-                <cube-input placeholder="名称"></cube-input>
-                <cube-button :inline="true" >搜索</cube-button>
-                <cube-button :inline="true" class="reset">新增</cube-button>
+                <cube-select
+                v-model="value"
+                :options="options">
+                </cube-select>
+                <cube-input placeholder="查询筛选"></cube-input>
+                <cube-button :inline="true" >查询</cube-button>
+                <cube-button :inline="true" class="reset">重置</cube-button>
             </div>
             <div class="searchData">
                 <div :size="size" :on-fetch="onFetch" :offset="offset">
                      <cube-recycle-list class="list" :size="size" :on-fetch="onFetch" :offset="offset">
                             <template slot="item" slot-scope="{ data }">
-                                    <div class="item" @click="$router.push('/orderNotice')">
+                                    <div class="item">
                                         <p>
                                             <span>订单号:</span>
                                             <span class="content">{{data.data}}</span>
@@ -63,7 +66,7 @@ export default {
             offset: 100,
             options:[{
                 value:0,
-                text:'全部'
+                text:'消费通知'
             },
             {
                 value:1,
@@ -136,8 +139,8 @@ export default {
     padding-left:.2rem;
     padding-right:.2rem;
     background:$color-white;
-    padding-top:1.2rem;
-    height: 3.2rem;
+    margin-top:.2rem;
+    height: 2.8rem;
     .cube-select
     .cube-input
     button{
@@ -150,15 +153,16 @@ export default {
     }
 }
 .searchData{
+    background:$color-white;
+    padding-top: .2rem;
     position: absolute;
-    top: 3.3rem
+    top: 3rem
     left: 0
     bottom: 0
     width: 100%;
     overflow: scroll;
     .cube-recycle-list{
         background: #fff;
-        padding-top:.2rem
     }
     .item{
         margin:0 .2rem .2rem;

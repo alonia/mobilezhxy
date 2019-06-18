@@ -1,22 +1,29 @@
 <template>
     <div>
-        <v-nav main-text="账户充值"></v-nav>
+        <v-nav main-text="消费确认"></v-nav>
         <div class="container">
              <div class="filterPanel" ref="menu"> 
-                <div class="line border-bottom-1px">
-                    <span> 用户名</span>
-                    <cube-input  v-model="date" style="width:75%"></cube-input> 
-                </div>
-                <div class="line border-bottom-1px">
-                    <span>查询筛选</span>
-                    <cube-input  v-model="date" style="width:75%"></cube-input>
-                   
-                </div>
-                <div class="line border-bottom-1px">
-                   <cube-button :inline="true" >搜索</cube-button>
-                    <cube-button :inline="true" >新增</cube-button>
-                </div> 
+                <cube-form
+                    :model="model"
+                    :schema="schema"
+                    :immediate-validate="false"
+                    :options="options"
+                   >
+                </cube-form>
+                 <cube-form
+                    :model="models"
+                    :schema="schemas"
+                    :immediate-validate="false"
+                    :options="options" v-show="isFold" class="border-top-1px"
+                    >
+                </cube-form>
+                <p style="line-height:46px;text-align:center" class="border-top-1px" @click="showMore">
+                    {{isFold ? menuText = '收起' :  menuText = '展开'}}
+                    <i class="cubeic-pulldown"></i>
+                </p>
+               
             </div>
+            <div class="mask" v-show="isMask" @click.self="closeMask"></div>
            <div class="searchData" ref="content" >
                 <div :size="size" :on-fetch="onFetch" :offset="offset">
                      <cube-recycle-list class="list" :size="size" :on-fetch="onFetch" :offset="offset">
@@ -83,7 +90,7 @@ const month = [
 export default {
     data(){
         return {
-            foldMenu:false,
+            isFold:false,
             isMask:false,
             menuIcon:'cubeic-pulldown',
             menuText:'展开',
@@ -92,7 +99,7 @@ export default {
             date:'',
             checked:true,
             checkList: ['1', '4'],
-            options: [{
+           /*  options: [{
                 text:'下单日期',
                 value:1
             },
@@ -100,10 +107,155 @@ export default {
                 text:'游玩日期',
                 value:2
             }],
-            value:2
+            value:2, */
+            validity: {},
+      valid: undefined,
+      model: {
+        checkboxValue: false,
+        checkboxGroupValue: [],
+        inputValue: '',
+        radioValue: '',
+        rateValue: 0,
+        selectValue: 2018,
+        switchValue: true,
+        textareaValue: '',
+        uploadValue: []
+      },
+      schema: {
+        groups: [
+          {
+            fields: [
+              {
+                type: 'select',
+                modelKey: 'selectValue',
+                label: '时间类型',
+                props: {
+                  options: ['下单日期']
+                },
+              },
+              {
+                type: 'select',
+                modelKey: 'selectValue',
+                label: '日期',
+                props: {
+                  options: [2015, 2016, 2017, 2018, 2019, 2020]
+                }
+              },
+               {
+                type: 'select',
+                modelKey: 'selectValue',
+                label: '支付方式',
+                props: {
+                  options: ['全部']
+                },
+              },
+              {
+                type: 'input',
+                modelKey: 'inputValue',
+                label: 'poi名称',
+                // validating when blur
+                trigger: 'blur'
+              }
+            ]
+          }
+        ]
+      },
+      models: {
+        checkboxValue: false,
+        checkboxGroupValue: [],
+        inputValue: '',
+        radioValue: '',
+        rateValue: 0,
+        selectValue: 2018,
+        switchValue: true,
+        textareaValue: '',
+        uploadValue: []
+      },
+      schemas: {
+        groups: [
+          {
+            fields: [
+              {
+                type: 'select',
+                modelKey: 'selectValue',
+                label: '分销渠道',
+                props: {
+                  options: ['下单日期']
+                },
+              },
+               {
+                type: 'input',
+                modelKey: 'inputValue',
+                label: '订单号',
+                // validating when blur
+                trigger: 'blur'
+              },
+              {
+                type: 'input',
+                modelKey: 'inputValue',
+                label: '证件号码',
+                // validating when blur
+                trigger: 'blur'
+              },
+               {
+                type: 'input',
+                modelKey: 'inputValue',
+                label: '联系电话',
+                // validating when blur
+                trigger: 'blur'
+              },
+               {
+                type: 'input',
+                modelKey: 'inputValue',
+                label: '联系人',
+                // validating when blur
+                trigger: 'blur'
+              },
+              {
+                type: 'submit',
+                label: '搜索'
+              },
+              {
+                type: 'reset',
+                label: '重置'
+              }
+            ]
+          }
+        ]
+      },
+      options: {
+        scrollToInvalidField: true,
+        layout: 'standard' // classic fresh
+      }
         }
     },
+    created(){
+        this.getData()
+    },
     methods: {
+        async getData(){
+            let param = {
+                queryType:0,
+				startDate:'2019-04-23',
+				endDate:'2019-04-23',
+				paymentWay:'',
+				orderStatus:-1,
+				supplierId:'',
+				distributorId:'',
+				credentials:'',
+				phone:'',
+				name:'',
+				findType:'',
+				findOrder:'',
+				poiId:'',
+				limit:5,
+				page:1
+            }
+            //let data = await this.$http.listBySelective(param)
+            
+            let data = await this.$http.listBySelective(param)
+            console.log(data)
+        },
         initTop(){
              this.$refs.content.style.top = this.$refs.menu.offsetHeight + 5 + 'px'
         },
@@ -112,14 +264,15 @@ export default {
             this.isMask = false
         },
         showMore(){
-            this.foldMenu = !this.foldMenu;
-            this.foldMenu ? this.menuIcon = 'cubeic-pullup':this.menuIcon = 'cubeic-pulldown'
-            if(this.foldMenu){
+           this.isFold = !this.isFold;
+            //this.foldMenu ? this.menuIcon = 'cubeic-pullup':this.menuIcon = 'cubeic-pulldown'
+            if(this.isFold){
                 this.isMask = true
             }else{
                 this.isMask = false
             }
-            
+          
+           
         },
         onFetch() {
             let items = []
@@ -186,6 +339,13 @@ export default {
 .filterPanel .cube-input-field{
         padding:5px;
 }
+.cube-form-group-content .cube-form-item:nth-child(6){
+    float: left;
+    width: 50%;
+}
+.cube-form-group-content .cube-btn{
+   padding: 0.2rem;
+}
 
 </style>
 
@@ -216,7 +376,7 @@ export default {
         padding: .1rem 0rem;
         justify-content: space-between;
         span{
-            line-height:.7rem;
+            line-height:1rem;
             width: 1.5rem;
         }
          .cube-input

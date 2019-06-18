@@ -1,22 +1,24 @@
 <template>
     <div>
-        <v-nav main-text="账户充值"></v-nav>
+        <v-nav main-text="查看商品"></v-nav>
         <div class="container">
-             <div class="filterPanel" ref="menu"> 
-                <div class="line border-bottom-1px">
-                    <span> 用户名</span>
-                    <cube-input  v-model="date" style="width:75%"></cube-input> 
+             <div class="filterPanel" ref="menu">               
+                <cube-input placeholder="分销组"></cube-input>
+                <cube-input placeholder="分销商"></cube-input>
+                <cube-input placeholder="日期" v-model="date"></cube-input>
+                <cube-button :inline="true" @click="showMutiPicker()">选择日期</cube-button>
+                <cube-button :inline="true" class="reset">查询</cube-button>
+                <cube-button :icon="menuIcon" @click="showMore">更多</cube-button>
+                <div v-show="foldMenu" style="width: 100%;" ref="moreMenu">
+                    <cube-button :inline="true" >修改库存</cube-button>
+                    <cube-button :inline="true" class="fr">新增库存</cube-button>
+                    <div style="width:100%">
+                    <cube-checkbox-group :horizontal="true"  v-model="checkList" :options="options" shape="square"/>
+                    </div>
                 </div>
-                <div class="line border-bottom-1px">
-                    <span>查询筛选</span>
-                    <cube-input  v-model="date" style="width:75%"></cube-input>
-                   
-                </div>
-                <div class="line border-bottom-1px">
-                   <cube-button :inline="true" >搜索</cube-button>
-                    <cube-button :inline="true" >新增</cube-button>
-                </div> 
+                
             </div>
+            <div class="mask" v-show="isMask" @click.self="closeMask"></div>
            <div class="searchData" ref="content" >
                 <div :size="size" :on-fetch="onFetch" :offset="offset">
                      <cube-recycle-list class="list" :size="size" :on-fetch="onFetch" :offset="offset">
@@ -65,6 +67,7 @@
                 </div>  
             </div>
         </div>
+        <v-tab menu-text="商品"></v-tab>
     </div>
 </template>
 <script>
@@ -93,21 +96,40 @@ export default {
             checked:true,
             checkList: ['1', '4'],
             options: [{
-                text:'下单日期',
-                value:1
+                label:'全部',
+                value:'1'
             },
             {
-                text:'游玩日期',
-                value:2
-            }],
-            value:2
+                label:'星期一',
+                value:'2'
+            },
+            {
+                label:'星期二',
+                value:'3'
+            },{
+                label:'星期三',
+                value:'4'
+            }
+            ,{
+                label:'星期四',
+                value:'5'
+            },{
+                label:'星期五',
+                value:'6'
+            },{
+                label:'星期六',
+                value:'7'
+            },{
+                label:'星期日',
+                value:'8'
+            }]
         }
     },
     methods: {
         initTop(){
              this.$refs.content.style.top = this.$refs.menu.offsetHeight + 5 + 'px'
         },
-        closeMask(){
+         closeMask(){
             this.foldMenu = false
             this.isMask = false
         },
@@ -119,7 +141,6 @@ export default {
             }else{
                 this.isMask = false
             }
-            
         },
         onFetch() {
             let items = []
@@ -203,30 +224,22 @@ export default {
     z-index: 1;
 }
 .filterPanel{
+    display:flex;
+    flex-wrap:wrap;
     position:fixed;
     width: 100%;
-    z-index:50;
+    z-index:2;
+    justify-content:space-between;
     padding-left:.2rem;
     padding-right:.2rem;
     background:$color-white;
     padding-top:1.2rem;
-    .line{
-        width:100%;
-        display:flex;
-        padding: .1rem 0rem;
-        justify-content: space-between;
-        span{
-            line-height:.7rem;
-            width: 1.5rem;
-        }
-         .cube-input
-         .cube-select
-         button{
-                width:35%; 
-        }
+    .cube-select
+    .cube-input
+    button{
+        width:45%;
+        margin-bottom:.25rem; 
     }
-    
-   
     .cube-btn{
         padding: 8px;
         font-size: 14px;

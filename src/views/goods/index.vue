@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-nav main-text="商品"></v-nav>
+        <v-nav  left-text="商品" :input-flag="true"></v-nav>
         <div class="container">
              <cube-tab-bar v-model="selectedLabel"
                     show-slider
@@ -22,7 +22,7 @@
           <cube-slide-item>
             <cube-scroll  ref="scroll" :data="stockData" :options="scrollOptions">
               <ul class="list-wrapper">
-                 <li class="tab-panel-li" v-for="(item, index) in stockData" :key="index">
+                 <li @click="goto" class="tab-panel-li" v-for="(item, index) in stockData" :key="index">
                       <h2 class="border-bottom-1px">华侨城门票{{item.title}}</h2>
                       <div class="goods">
                           <div class="fl left">
@@ -180,6 +180,9 @@ export default {
         const slideScrollerWidth = this.$refs.slide.slide.scrollerWidth
         const deltaX = x / slideScrollerWidth * tabItemWidth
         this.$refs.tabNav.setSliderTransform(deltaX)
+      },
+      goto(){
+        this.$router.push('/detail');
       }
     },
     computed: {

@@ -1,21 +1,20 @@
 <template>
     <div>
-        <v-nav main-text="账户充值"></v-nav>
+        <v-nav main-text="消费确认"></v-nav>
         <div class="container">
              <div class="filterPanel" ref="menu"> 
                 <div class="line border-bottom-1px">
-                    <span> 用户名</span>
-                    <cube-input  v-model="date" style="width:75%"></cube-input> 
+                    <span> 审核类型</span>
+                    <cube-select style="width:75%"
+                        v-model="value"
+                        :options="options">
+                        </cube-select >  
                 </div>
                 <div class="line border-bottom-1px">
-                    <span>查询筛选</span>
-                    <cube-input  v-model="date" style="width:75%"></cube-input>
-                   
+                    <span> 分销商</span>
+                    <cube-input  v-model="date" ></cube-input>
+                    <cube-button :inline="true" >搜索</cube-button>
                 </div>
-                <div class="line border-bottom-1px">
-                   <cube-button :inline="true" >搜索</cube-button>
-                    <cube-button :inline="true" >新增</cube-button>
-                </div> 
             </div>
            <div class="searchData" ref="content" >
                 <div :size="size" :on-fetch="onFetch" :offset="offset">
@@ -216,7 +215,7 @@ export default {
         padding: .1rem 0rem;
         justify-content: space-between;
         span{
-            line-height:.7rem;
+            line-height:1rem;
             width: 1.5rem;
         }
          .cube-input

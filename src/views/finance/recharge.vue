@@ -8,7 +8,7 @@
                     <cube-input  v-model="date" style="width:75%"></cube-input> 
                 </div>
                 <div class="line border-bottom-1px">
-                    <span>查询筛选</span>
+                    <span>名称</span>
                     <cube-input  v-model="date" style="width:75%"></cube-input>
                    
                 </div>
@@ -216,7 +216,7 @@ export default {
         padding: .1rem 0rem;
         justify-content: space-between;
         span{
-            line-height:.7rem;
+            line-height:1rem;
             width: 1.5rem;
         }
          .cube-input
